@@ -1,41 +1,16 @@
-var xhr = new XMLHttpRequest();
-xhr.onreadystatechange = function () {
-  if(xhr.readyState === 4 && xhr.status === 200) {
-    var employees = JSON.parse(xhr.responseText);
+$(document).ready(function() {
+  var url = "../data/employees.json";
+  $.getJSON(url, function(response) {
     var statusHTML = '<ul class="bulleted">';
-    for (var i=0; i<employees.length; i += 1) {
-      if (employees[i].inoffice === true) {
+    $.each(response, function(index, employee) {
+      if (employee.inoffice === true) {
         statusHTML += '<li class="in">';
       } else {
         statusHTML += '<li class="out">';
       }
-      statusHTML += employees[i].name;
-      statusHTML += '</li>';
-    }
+      statusHTML += employee.name + '</li>';
+    }); // end .each
     statusHTML += '</ul>';
-    document.getElementById('employeeList').innerHTML = statusHTML;
-  }
-};
-xhr.open('GET', '../data/employees.json');
-xhr.send();
-
-var roomRequest = new XMLHttpRequest();
-xhr2.onreadystatechange = function() {
-    if (roomRequest.readyState === 4 && roomRequest.status === 200) {
-        var confRoom = JSON.parse(roomRequest.responseText);
-        var statusRoom = '<ul class="rooms"';
-        for (var i = 0; i < confRoom.length; i++) {
-            if confRoom[i].available ==== true) {
-                statusRoom += '<li class="empty">';
-            } else {
-                statusRoom += '<li class="full">';
-            }
-            statusRoom += confRoom[i].room;
-            statusRoom += '</li>';
-        }
-        statusRoom += ''</ul>;
-        document.getElementById('roomList').innerHTML = statusRoom;
-    }
-};
-roomRequest.open('GET', '../data/rooms.json');
-roomRequest.send();
+    $('#employeeList').html(statusHTML);
+  }); // end getJSON
+}); // end ready
