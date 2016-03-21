@@ -20,12 +20,12 @@ xhr.open('GET', '../data/employees.json');
 xhr.send();
 
 var roomRequest = new XMLHttpRequest();
-xhr2.onreadystatechange = function() {
+roomRequest.onreadystatechange = function() {
     if (roomRequest.readyState === 4 && roomRequest.status === 200) {
         var confRoom = JSON.parse(roomRequest.responseText);
         var statusRoom = '<ul class="rooms"';
         for (var i = 0; i < confRoom.length; i++) {
-            if confRoom[i].available ==== true) {
+            if (confRoom[i].available === true) {
                 statusRoom += '<li class="empty">';
             } else {
                 statusRoom += '<li class="full">';
@@ -33,7 +33,7 @@ xhr2.onreadystatechange = function() {
             statusRoom += confRoom[i].room;
             statusRoom += '</li>';
         }
-        statusRoom += ''</ul>;
+        statusRoom += '</ul>';
         document.getElementById('roomList').innerHTML = statusRoom;
     }
 };
