@@ -9,7 +9,14 @@ $(document).ready(function(){
       format: "json"
     } // end flickrOptions
     function displayPhotos(data){
-
+      var photoHTML = '<ul>';
+      $.each(data.items, function(i, photo) {
+        photoHTML += '<li class="grid-25 tablet-grid-50"';
+        photoHTML += '<a href="' + photo.link + '" class="image">';
+        photoHTML += '<img src="' + photo.media.m + '"></a></li>';
+      }); // end each
+      photoHTML += '</ul>';
+      $('#photos').html(photoHTML);
     } // end displayPhotos
     $.getJSON(flickerAPI, flickrOptions, displayPhotos);
   }); // end click
